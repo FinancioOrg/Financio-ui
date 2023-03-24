@@ -29,21 +29,13 @@ function RichTextEditor() {
     });
   }
 
-  function handleFileUpload(file) {
-    // handle file upload
-    return new Promise((resolve, reject) => {
-      resolve({ data: { link: 'https://via.placeholder.com/150' } });
-    });
-  }
-
   function handleSave() {
     const contentState = editorState.getCurrentContent();
     const articleHtml = stateToHTML(contentState);
     
     // send article data and images to backend
     const data = {
-      html: articleHtml,
-      images: images
+      html: articleHtml
     };
 
     // send data to backend using fetch or axios
@@ -65,7 +57,7 @@ function RichTextEditor() {
   }
 
   const RenderedText = ({ htmlContent }) => {
-    return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    return <div dangerouslySetInnerHTML={{ __html: htmlContent}}/>;
   };
 
   const [renderedHTML, setRenderedHTML] = useState(null);
@@ -103,9 +95,6 @@ function RichTextEditor() {
           image: {
             uploadCallback: handleImageUpload,
             alt: { present: true, mandatory: true },
-          },
-          file: {
-            uploadCallback: handleFileUpload,
           },
         }}
         wrapperClassName="wrapper-class"
