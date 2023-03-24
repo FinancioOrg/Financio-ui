@@ -9,11 +9,34 @@ function RichTextEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [images, setImages] = useState([]);
 
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
-  };
+  function handleEditorStateChange(newEditorState) {
+    setEditorState(newEditorState);
+  }
 
-  const onSave = () => {
+  function handleContentStateChange(newContentState) {
+    // do something with the new content state
+  }
+
+  function handleImageUpload(file) {
+    // store image in state
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImages([...images, reader.result]);
+        resolve({ data: { link: reader.result } });
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function handleFileUpload(file) {
+    // handle file upload
+    return new Promise((resolve, reject) => {
+      resolve({ data: { link: 'https://via.placeholder.com/150' } });
+    });
+  }
+
+  function handleSave() {
     const contentState = editorState.getCurrentContent();
     const articleHtml = stateToHTML(contentState);
     
@@ -37,43 +60,22 @@ function RichTextEditor() {
       .catch(error => {
         // handle error
       });
-    setRenderedHTML(articleHtml);
-  };
+    setRenderedHTML(articleHtml);  
 
-  function handleImageUpload(file) {
-    // store image in state
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImages([...images, reader.result]);
-        resolve({ data: { link: reader.result } });
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  const [renderedHTML, setRenderedHTML] = useState(null);
-
-  function handleContentStateChange(newContentState) {
-    // do something with the new content state
-  }
-
-  function handleFileUpload(file) {
-    // handle file upload
-    return new Promise((resolve, reject) => {
-      resolve({ data: { link: 'https://via.placeholder.com/150' } });
-    });
   }
 
   const RenderedText = ({ htmlContent }) => {
     return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
   };
 
+  const [renderedHTML, setRenderedHTML] = useState(null);
+
+
   return (
     <div>
       <Editor
         editorState={editorState}
-        onEditorStateChange={onEditorStateChange}
+        onEditorStateChange={handleEditorStateChange}
         onContentStateChange={handleContentStateChange}
         toolbar={{
           options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'image', 'history'],
@@ -110,7 +112,7 @@ function RichTextEditor() {
         editorClassName="editor-class"
         toolbarClassName="toolbar-class"
       />
-      <button onClick={onSave}>Save</button>
+      <button onClick={handleSave}>Save</button>
       {renderedHTML && <RenderedText htmlContent={renderedHTML} />}
     </div>
   );

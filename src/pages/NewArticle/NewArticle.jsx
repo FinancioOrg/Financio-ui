@@ -1,5 +1,5 @@
 import React from "react";
-import RichTextEditor from '../../components/RichTextEditor/RichTextEditor';
+import RichTextEditor from '../../components/RichTextEditor/RichTextEditor_WithSaving2';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 
