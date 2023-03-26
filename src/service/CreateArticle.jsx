@@ -1,5 +1,5 @@
 import axios from "axios";
-export default function createArticle(body) {
+export default function CreateArticle(body) {
   const config = {
     method: "post",
     url: "https://localhost:7074/api/v1/Article/Create",
