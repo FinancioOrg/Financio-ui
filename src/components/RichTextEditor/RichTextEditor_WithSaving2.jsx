@@ -43,6 +43,7 @@ function RichTextEditor() {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
+        
         'Content-Type': 'application/json'
       }
     })
@@ -95,6 +96,7 @@ function RichTextEditor() {
           image: {
             uploadCallback: handleImageUpload,
             alt: { present: true, mandatory: true },
+            previewImage: true
           },
         }}
         wrapperClassName="wrapper-class"
