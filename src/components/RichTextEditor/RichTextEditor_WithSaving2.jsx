@@ -4,6 +4,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './richTextEditor.css'; // import the CSS file
 import { stateToHTML } from 'draft-js-export-html';
+import axios from "axios";
 
 function RichTextEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -35,26 +36,34 @@ function RichTextEditor() {
     
     // send article data and images to backend
     const data = {
-      html: articleHtml
+      Title: "my-article-1012",
+      Text: articleHtml,
+      CollectionIds: ['641988e35e7dbd5b89a54b0f']
     };
 
     // send data to backend using fetch or axios
-    fetch('/api/save-article', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        // handle response
-      })
-      .catch(error => {
-        // handle error
-      });
+    createArticle(data);
     setRenderedHTML(articleHtml);  
+  }
 
+  function createArticle(body) {
+    const config = {
+      method: "post",
+      url: "https://localhost:7074/api/v1/Article/Create",
+      headers: {
+        contentType: "application/json",
+      },
+      data: body,
+    };
+  
+    console.log(body);
+  
+    return axios(config)
+      .then((response) => response.data)
+      .catch(() => {
+        console.error("Error creating article");
+        alert("Error creating article");
+      });
   }
 
   const RenderedText = ({ htmlContent }) => {
