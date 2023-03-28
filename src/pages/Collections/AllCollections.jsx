@@ -36,7 +36,7 @@ const CollectionGrid = () => {
   const navigate = useNavigate();
 
   function handleClick(event) {
-    navigate("/newArticle");
+    navigate("/articles/123");
   }
 
   return (

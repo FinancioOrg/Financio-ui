@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import { useState } from 'react';
 import { EditorState } from 'draft-js';
-import createArticle from '../../service/CreateArticle';
+import {CreateArticle} from '../../service/ArticleService';
 import { stateToHTML } from 'draft-js-export-html';
 
 const ariaLabel = { 'aria-label': 'description' };
@@ -29,7 +29,7 @@ export default function NewArticle(){
         };
     
         // send data to backend using fetch or axios
-        createArticle(data);
+        CreateArticle(data);
       }
 
     return(
