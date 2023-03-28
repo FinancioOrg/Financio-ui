@@ -12,22 +12,22 @@ import SearchBar from "../../components/SearchBar";
 const CollectionGrid = () => {
   const collections = [
     {
-      title: "Collection 1",
+      title: "Private equity",
       image:
         "https://howtodrawforkids.com/wp-content/uploads/2022/07/how-to-draw-an-open-book.jpg",
     },
     {
-      title: "Collection 2",
+      title: "Pensions",
       image:
         "https://howtodrawforkids.com/wp-content/uploads/2022/07/how-to-draw-an-open-book.jpg",
     },
     {
-      title: "Collection 3",
+      title: "Personal finance",
       image:
         "https://howtodrawforkids.com/wp-content/uploads/2022/07/how-to-draw-an-open-book.jpg",
     },
     {
-      title: "Collection 4",
+      title: "Investment banking",
       image:
         "https://www.incimages.com/uploaded_files/image/1920x1080/getty_655998316_2000149920009280219_363765.jpg",
     },

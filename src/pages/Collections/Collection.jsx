@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ArticleCard from '../../components/ArticleCard/ArticleCard';
+import ArticleCard from '../../components/Article/ArticleCard';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import {GetArticlesByCollection} from '../../service/ArticleService';

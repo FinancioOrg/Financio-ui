@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Layout from "./layout/PageLayout";
 import NoContent from "./pages/NoContent/NoContent";
-import NewArticle from "./pages/NewArticle/NewArticle";
+import NewArticle from "./pages/Articles/NewArticle";
 import AllCollections from "./pages/Collections/AllCollections";
 import Collection from "./pages/Collections/Collection";
 import Article from "./pages/Articles/Article";
