@@ -12,9 +12,18 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
 
 
 export default function ArticleCard(props) {
+    const navigate = useNavigate();
+
+    function handleNavigate(path) {
+      return function(event) {
+        navigate(path);
+      };
+    }
+
     return (
       <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', border: '1px solid lightgrey' }}>
         <CardHeader
@@ -51,7 +60,7 @@ export default function ArticleCard(props) {
             <ShareIcon />
           </IconButton>
         </CardActions>
-        <Button variant="contained">Read</Button>
+        <Button variant="contained" onClick={handleNavigate("/article/"+props.article.id)}>Read</Button>
       </Card>
     );
   }

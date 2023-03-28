@@ -6,14 +6,16 @@ import Layout from "./layout/PageLayout";
 import NoContent from "./pages/NoContent/NoContent";
 import NewArticle from "./pages/NewArticle/NewArticle";
 import AllCollections from "./pages/Collections/AllCollections";
-import AllArticles from "./pages/Articles/AllArticles";
+import Collection from "./pages/Collections/Collection";
+import Article from "./pages/Articles/Article";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/articles/:id" element={<AllArticles />} />
+        <Route path="/collection/:id" element={<Collection />} />
+        <Route path="/article/:id" element={<Article />} />
         <Route path="/collections" element={<AllCollections />} />
         <Route path="/newArticle" element={<NewArticle />} />
         <Route path="*" element={<NoContent/>}/>

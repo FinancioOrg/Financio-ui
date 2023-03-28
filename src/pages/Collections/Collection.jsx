@@ -64,7 +64,7 @@ const articles = [
     }
 ]
 
-export default function AllArticles() {
+export default function Collection() {
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(1);
   const articlesPerPage = 4;
