@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './richTextEditor.css'; // import the CSS file
 
-function RichTextEditor() {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+function RichTextEditor(props) {
+  const [images, setImages] = useState([]);
 
   function handleEditorStateChange(newEditorState) {
-    setEditorState(newEditorState);
+    props.setEditorState(newEditorState);
   }
 
   function handleContentStateChange(newContentState) {
@@ -16,23 +15,21 @@ function RichTextEditor() {
   }
 
   function handleImageUpload(file) {
-    // handle image upload
+    // store image in state
     return new Promise((resolve, reject) => {
-      resolve({ data: { link: 'https://via.placeholder.com/150' } });
-    });
-  }
-
-  function handleFileUpload(file) {
-    // handle file upload
-    return new Promise((resolve, reject) => {
-      resolve({ data: { link: 'https://via.placeholder.com/150' } });
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImages([...images, reader.result]);
+        resolve({ data: { link: reader.result } });
+      };
+      reader.readAsDataURL(file);
     });
   }
 
   return (
     <div>
       <Editor
-        editorState={editorState}
+        editorState={props.editorState}
         onEditorStateChange={handleEditorStateChange}
         onContentStateChange={handleContentStateChange}
         toolbar={{
@@ -61,9 +58,7 @@ function RichTextEditor() {
           image: {
             uploadCallback: handleImageUpload,
             alt: { present: true, mandatory: true },
-          },
-          file: {
-            uploadCallback: handleFileUpload,
+            previewImage: true
           },
         }}
         wrapperClassName="wrapper-class"

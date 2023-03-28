@@ -20,8 +20,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Button from '@mui/material/Button';
 import { Outlet } from "react-router-dom/dist";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
+
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -92,6 +94,15 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const navigate = useNavigate();
+
+  function handleNavigate(path) {
+    return function(event) {
+      navigate(path);
+    };
+  }
+
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -131,7 +142,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox'].map((text, index) => (
+          {['Collections'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -139,6 +150,7 @@ export default function MiniDrawer() {
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
                 }}
+                onClick={handleNavigate("/collections")}
               >
                 <ListItemIcon
                   sx={{
@@ -156,7 +168,7 @@ export default function MiniDrawer() {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['MyLink', 'MyLink', 'MyLink'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
