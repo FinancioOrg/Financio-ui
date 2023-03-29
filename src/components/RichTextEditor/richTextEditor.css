@@ -1,0 +1,36 @@
+.editor-container {
+    padding: 30px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-color: #ccc; /* add this line to set the border color */
+  }
+  
+  .wrapper-class {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .toolbar-class {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .editor-class {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 200px;
+  }
+
+  .rdw-editor-toolbar {
+    padding: 6px 5px 0;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: flex-start;
+    background: white;
+    flex-wrap: wrap;
+    font-size: 15px;
+    margin-bottom: 5px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+  
