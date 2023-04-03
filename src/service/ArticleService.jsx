@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_BACKEND_URL
+
 export const CreateArticle = (body) => {
   const config = {
     method: "post",
-    url: "https://localhost:7074/api/v1/Article/Create",
+    url: `${apiUrl}/api/v1/Article/Create`,
     headers: {
       contentType: "application/json",
     },
@@ -23,7 +25,7 @@ export const CreateArticle = (body) => {
 export const GetArticlesByCollection = (id) => {
   const config = {
     method: "get",
-    url: "https://localhost:7074/api/v1/Article/GetAllByCollection/" + id
+    url: `${apiUrl}/api/v1/Article/GetAllByCollection/${id}`
   };
 
   return axios(config)
@@ -37,7 +39,7 @@ export const GetArticlesByCollection = (id) => {
 export const GetArticleByID = (id) => {
   const config = {
     method: "get",
-    url: "https://localhost:7074/api/v1/Article/GetById/" + id
+    url: `${apiUrl}/api/v1/Article/GetById/${id}`
   };
 
   return axios(config)
