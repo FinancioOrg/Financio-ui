@@ -8,6 +8,8 @@ import NewArticle from "./pages/Articles/NewArticle";
 import AllCollections from "./pages/Collections/AllCollections";
 import Collection from "./pages/Collections/Collection";
 import Article from "./pages/Articles/Article";
+import CallbackPage from "./pages/Callback/Callback";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 function App() {
   return (
@@ -18,10 +20,13 @@ function App() {
         <Route path="/article/:id" element={<Article />} />
         <Route path="/collections" element={<AllCollections />} />
         <Route path="/newArticle" element={<NewArticle />} />
+        <Route path="/callback" element={<CallbackPage />} />
         <Route path="*" element={<NoContent/>}/>
       </Route>
     </Routes>
   );
 }
 
-export default App;
+export default withAuthenticationRequired(App, {
+  onRedirecting: () => <p>Loading...</p>,
+});
