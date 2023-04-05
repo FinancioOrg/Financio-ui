@@ -20,7 +20,6 @@ function App() {
         <Route path="/article/:id" element={<Article />} />
         <Route path="/collections" element={<AllCollections />} />
         <Route path="/newArticle" element={<NewArticle />} />
-        <Route path="/callback" element={<CallbackPage />} />
         <Route path="*" element={<NoContent/>}/>
       </Route>
     </Routes>

@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import Button from '@mui/material/Button';
 import { Outlet } from "react-router-dom/dist";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const drawerWidth = 240;
 
@@ -93,6 +94,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { user, logout } = useAuth0();
 
   const navigate = useNavigate();
 
@@ -131,7 +133,7 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={handleNavigate("/")}>
             Financio 
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={() => logout({logoutParams:{returnTo:window.location.origin}})}>Logout</Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
