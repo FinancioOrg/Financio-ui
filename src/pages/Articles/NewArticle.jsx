@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { EditorState } from 'draft-js';
 import { CreateArticle } from '../../service/ArticleService';
 import { stateToHTML } from 'draft-js-export-html';
+import DOMPurify from 'dompurify';
+
 
 const ariaLabel = { 'aria-label': 'description' };
 
@@ -21,12 +23,14 @@ export default function NewArticle() {
   async function handleClassify() {
     const contentState = editorState.getCurrentContent();
     const articleHtml = stateToHTML(contentState);
+    const sanitizedHtml = DOMPurify.sanitize(articleHtml, { ALLOWED_TAGS: [] });
+    const plainText = sanitizedHtml.replace(/<[^>]+>/g, '');
 
     // send article text to backend for classification
     const response = await fetch('http://localhost:5000/classify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: articleHtml, categories: ['Stocks and Investing','Banking', 'Personal Finance', 'Business and Economy', 'International Trade', 'Real Estate'] })
+      body: JSON.stringify({ text: plainText, categories: ['Stocks and Investing','Banking', 'Personal Finance', 'Business and Economy', 'International Trade', 'Real Estate'] })
     });
 
     const data = await response.json();
