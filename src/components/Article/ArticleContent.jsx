@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 
 function ArticleContent({ htmlContent }) {
   return (
