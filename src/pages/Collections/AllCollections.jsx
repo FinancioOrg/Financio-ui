@@ -8,43 +8,34 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
+import { GetAllCollections } from "../../service/CollectionService";
 
 const CollectionGrid = () => {
-  const collections = [
-    {
-      title: "Private equity",
-      image:
-        "https://howtodrawforkids.com/wp-content/uploads/2022/07/how-to-draw-an-open-book.jpg",
-    },
-    {
-      title: "Pensions",
-      image:
-        "https://howtodrawforkids.com/wp-content/uploads/2022/07/how-to-draw-an-open-book.jpg",
-    },
-    {
-      title: "Personal finance",
-      image:
-        "https://howtodrawforkids.com/wp-content/uploads/2022/07/how-to-draw-an-open-book.jpg",
-    },
-    {
-      title: "Investment banking",
-      image:
-        "https://www.incimages.com/uploaded_files/image/1920x1080/getty_655998316_2000149920009280219_363765.jpg",
-    },
-  ];
-
+  const [data, setData] = React.useState([]);
   const navigate = useNavigate();
 
-  function handleClick(event) {
-    navigate("/collection/641988e35e7dbd5b89a54b0f");
+  function handleNavigate(path) {
+    return function(event) {
+      navigate(path);
+    };
   }
+
+  React.useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    await GetAllCollections().then((response) => {
+      setData(response);
+    });
+  };
 
   return (
     <div style={{ marginTop: "32px" }}>
       <SearchBar searchSubject={"collections"}/>
       <div style={{ marginTop: "32px" }}>
         <Grid container spacing={2}>
-          {collections.map((collection, index) => (
+          {data.map((collection, index) => (
             <Grid key={index} item xs={12} sm={6} md={4}>
               <Card
                 sx={{
@@ -55,12 +46,12 @@ const CollectionGrid = () => {
               >
                 <CardMedia
                   sx={{ height: 140 }}
-                  image={collection.image}
-                  title={collection.title}
+                  image="https://howtodrawforkids.com/wp-content/uploads/2022/07/how-to-draw-an-open-book.jpg"
+                  title={collection.name}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {collection.title}
+                    {collection.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Lizards are a widespread group of squamate reptiles, with
@@ -69,7 +60,7 @@ const CollectionGrid = () => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" onClick={handleClick}>
+                  <Button size="small" onClick={handleNavigate("/collection/" + collection.id)}>
                     Learn More
                   </Button>
                 </CardActions>
