@@ -18,9 +18,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import Button from '@mui/material/Button';
 import { Outlet } from "react-router-dom/dist";
 import { useNavigate } from "react-router-dom";
+import  LogoutButton from "../components/Buttons/LogoutButton"
 
 const drawerWidth = 240;
 
@@ -131,7 +131,7 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={handleNavigate("/")}>
             Financio 
           </Typography>
-          <Button color="inherit">Login</Button>
+          <LogoutButton/>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
