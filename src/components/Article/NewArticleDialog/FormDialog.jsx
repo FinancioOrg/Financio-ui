@@ -10,12 +10,6 @@ import { MenuItem } from "@mui/material";
 import { GetAllCollections } from "../../../service/CollectionService";
 import LinearProgress from '@mui/material/LinearProgress';
 
-const options = [
-  { value: "option1", label: "Option 1" },
-  { value: "option2", label: "Option 2" },
-  { value: "option3", label: "Option 3" },
-];
-
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [selectedOption, setSelectedOption] = React.useState("");
@@ -39,6 +33,11 @@ export default function FormDialog(props) {
   };
 
   const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handlePublish = () => {
+    props.handlePublish(selectedOption, textFieldValue);
     setOpen(false);
   };
 
@@ -121,7 +120,7 @@ export default function FormDialog(props) {
             disabled={loading}
           >
             {collections.map((option) => (
-              <MenuItem key={option.id} value={option.name}>
+              <MenuItem key={option.id} value={option.id}>
                 {option.name}
               </MenuItem>
             ))}
@@ -139,7 +138,7 @@ export default function FormDialog(props) {
           <Button
             variant="outlined"
             color="success"
-            onClick={props.handlePublish}
+            onClick={handlePublish}
             disabled={loading}
           >
             Publish

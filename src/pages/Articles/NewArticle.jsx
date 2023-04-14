@@ -1,6 +1,5 @@
 import React from "react";
 import RichTextEditor from "../../components/RichTextEditor/RichTextEditor";
-import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 import { useState } from "react";
 import { EditorState } from "draft-js";
@@ -8,12 +7,18 @@ import { CreateArticle } from "../../service/ArticleService";
 import { stateToHTML } from "draft-js-export-html";
 import DOMPurify from "dompurify";
 import FormDialog from "../../components/Article/NewArticleDialog/FormDialog";
+import { useNavigate } from "react-router-dom";
 
 const ariaLabel = { "aria-label": "description" };
 
 export default function NewArticle() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [inputTitle, setInputTitle] = useState("New article");
+  const navigate = useNavigate();
+
+  function handleNavigate(event) {
+    navigate("/collections");
+  }
 
   const handleInputChange = (event) => {
     setInputTitle(event.target.value);
@@ -61,7 +66,7 @@ export default function NewArticle() {
     return data;
   }
 
-  function handleSave() {
+  function handleSave(collectionId, description) {
     const contentState = editorState.getCurrentContent();
     const articleHtml = stateToHTML(contentState);
 
@@ -69,11 +74,13 @@ export default function NewArticle() {
     const data = {
       Title: inputTitle,
       Text: articleHtml,
-      CollectionIds: ["641988e35e7dbd5b89a54b0f"],
+      Description: description,
+      CollectionId: collectionId,
     };
 
     // send data to backend using fetch or axios
     CreateArticle(data);
+    handleNavigate();
   }
 
   return (
@@ -88,7 +95,7 @@ export default function NewArticle() {
         editorState={editorState}
         setEditorState={setEditorState}
       />
-      <FormDialog handleClassify={handleClassify} handleSummarize={handleSummarize}/>
+      <FormDialog handleClassify={handleClassify} handleSummarize={handleSummarize} handlePublish={handleSave}/>
     </div>
   );
 }
