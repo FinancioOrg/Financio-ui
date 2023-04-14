@@ -40,11 +40,11 @@ export default function Collection() {
 
 return (
     <div>
+      <Button variant="contained" onClick={handleNavigate}>New Article</Button>
       {data.length === 0 ? (
         <div>Loading...</div>
       ) : (
         <React.Fragment>
-          <Button variant="contained" onClick={handleNavigate}>New Article</Button>
           <Grid
             container
             spacing={2}
