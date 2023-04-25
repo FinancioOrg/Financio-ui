@@ -28,43 +28,53 @@ export default function NewArticle() {
     const contentState = editorState.getCurrentContent();
     const articleHtml = stateToHTML(contentState);
     const sanitizedHtml = DOMPurify.sanitize(articleHtml, { ALLOWED_TAGS: [] });
-    const plainText = sanitizedHtml.replace(/<[^>]+>/g, "");
-
+    const plainText = sanitizedHtml.replace(/\s+/g, " ").trim();
+  
+    const words = plainText.split(" ");
+    const title = inputTitle;
+    const truncatedText = words.slice(0, 30).join(" ");
+    const text = `${title} ${truncatedText}`;
+  
     // send article text to backend for classification
     const response = await fetch("http://localhost:5000/classify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        text: plainText,
+        text: text,
       }),
     });
-
+  
     const data = await response.json();
-
-    
+  
     return data;
   }
+  
 
   async function handleSummarize() {
     const contentState = editorState.getCurrentContent();
     const articleHtml = stateToHTML(contentState);
     const sanitizedHtml = DOMPurify.sanitize(articleHtml, { ALLOWED_TAGS: [] });
-    const plainText = sanitizedHtml.replace(/<[^>]+>/g, "");
-
-    // send article text to backend for classification
+    const plainText = sanitizedHtml.replace(/\s+/g, " ").trim();
+  
+    const words = plainText.split(" ");
+    const title = inputTitle;
+    const truncatedText = words.slice(0, 300).join(" ");
+    const text = `${title} ${truncatedText}`;
+  
+    // send article text to backend for summarization
     const response = await fetch("http://localhost:5000/summarize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        text: plainText,
+        text: text,
       }),
     });
-
+  
     const data = await response.json();
-
-    
+  
     return data;
-  }
+  }  
+  
 
   function handleSave(collectionId, description) {
     const contentState = editorState.getCurrentContent();

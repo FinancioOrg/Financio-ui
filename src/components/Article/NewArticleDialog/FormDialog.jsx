@@ -62,7 +62,7 @@ export default function FormDialog(props) {
       (option) => option.name === category
     );
     if (categoryObject && textResponse) {
-      setSelectedOption(categoryObject.name);
+      setSelectedOption(categoryObject.id);
       setTextFieldValue(textResponse.summary);
     }
     setLoading(false);
