@@ -36,13 +36,13 @@ export default function FullArticleCard(props) {
         title={props.article.title}
         subheader={props.article.date}
       />
-      <CardMedia
+      {/* <CardMedia
         component="img"
         height="300"
         image="https://howtodrawforkids.com/wp-content/uploads/2022/07/how-to-draw-an-open-book.jpg"
         alt="Paella dish"
         sx={{ objectFit: "cover" }}
-      />
+      /> */}
       <CardContent sx={{ flexGrow: 1 }}>
         {/* <Typography variant="body2" color="text.secondary"> */}
           <ArticleContent htmlContent={props.article.text}/>
