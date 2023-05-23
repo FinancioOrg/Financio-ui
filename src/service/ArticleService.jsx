@@ -18,7 +18,7 @@ export const CreateArticle = (body) => {
     .then((response) => response.data)
     .catch(() => {
       console.error("Error creating article");
-      alert("Error creating article");
+      alert("Error creating the article");
     });
 }
 
@@ -36,10 +36,10 @@ export const GetArticlesByCollection = (id) => {
     });
 }
 
-export const GetArticleByID = (id) => {
+export const GetArticleByID = (articleID, userID) => {
   const config = {
     method: "get",
-    url: `${apiUrl}/api/v1/Article/GetById/${id}`
+    url: `${apiUrl}/api/v1/Article/GetByIdForUser/${articleID}/${userID}`
   };
 
   return axios(config)
@@ -47,5 +47,30 @@ export const GetArticleByID = (id) => {
     .catch(() => {
       console.error("Error fetching article by id");
       alert("Error fetching article by id");
+    });
+}
+
+export const LikeArticle = (_articleID, _userID) => {
+  const body = {
+    UserID: _userID,
+    ArticleID: _articleID,
+  };
+
+  const config = {
+    method: "post",
+    url: `${apiUrl}/api/v1/Article/Like`,
+    headers: {
+      contentType: "application/json",
+    },
+    data: body,
+  };
+
+  console.log(body);
+
+  return axios(config)
+    .then((response) => response.data)
+    .catch(() => {
+      console.error("Error liking the article");
+      alert("Error liking the article");
     });
 }
