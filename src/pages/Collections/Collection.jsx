@@ -1,16 +1,15 @@
-import * as React from 'react';
 import ArticleCard from '../../components/Article/ArticleCard';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import {GetArticlesByCollection} from '../../service/ArticleService';
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Button from '@mui/material/Button';
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function Collection() {
   const [data, setData] = useState([]);
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
   const articlesPerPage = 4;
   const pageCount = Math.ceil(data.length / articlesPerPage);
   let { id } = useParams();
@@ -44,7 +43,7 @@ return (
       {data.length === 0 ? (
         <div>Loading...</div>
       ) : (
-        <React.Fragment>
+        <Fragment>
           <Grid
             container
             spacing={2}
@@ -70,7 +69,7 @@ return (
               justifyContent: 'center',
             }}
           />
-        </React.Fragment>
+        </Fragment>
       )}
     </div>
   );
