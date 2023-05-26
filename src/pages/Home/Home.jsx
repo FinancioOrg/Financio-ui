@@ -1,27 +1,29 @@
 import ArticleCard from '../../components/Article/ArticleCard';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
-import {GetArticlesByCollection} from '../../service/ArticleService';
+import {GetTimeline} from '../../service/ArticleService';
 import { useState, useEffect, Fragment } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function HomePage() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const articlesPerPage = 4;
   const pageCount = Math.ceil(data.length / articlesPerPage);
-  const id = "64479869997e18d8d9e47537";
+  const { user } = useAuth0();
+  const userId = user.sub.split("|")[1];
 
   const handleChange = (event, value) => {
     setPage(value);
   };
 
   useEffect(() => {
-    getData(id);
+    getData(userId);
   }, []);
 
 
-  const getData = async (id) => {
-    await GetArticlesByCollection(id).then((response) => {
+  const getData = async (userId) => {
+    await GetTimeline(userId).then((response) => {
       setData(response);
     });
   };

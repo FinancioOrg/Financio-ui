@@ -50,6 +50,20 @@ export const GetArticleByID = (articleID, userID) => {
     });
 }
 
+export const GetTimeline = (userID) => {
+  const config = {
+    method: "get",
+    url: `${apiUrl}/api/v1/Article/GetTimeline/${userID}`
+  };
+
+  return axios(config)
+    .then((response) => response.data)
+    .catch(() => {
+      console.error("Error fetching article by id");
+      alert("Error fetching article by id");
+    });
+}
+
 export const LikeArticle = (_articleID, _userID) => {
   const body = {
     UserID: _userID,
